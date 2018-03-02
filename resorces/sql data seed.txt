@@ -1,0 +1,40 @@
+INSERT INTO Categories (CategoryName)
+VALUES	('Action'),
+		('Adventure'),
+		('Animation'),
+		('Childrens'),
+		('Comedy'),
+		('Crime'),
+		('Documentary'),
+		('Drama'),
+		('Fantasy'),
+		('Film-Noir'),
+		('Horror'),
+		('Musical'),
+		('Romance'),
+		('Sci-Fi'),
+		('Thriller'),
+		('War'),
+		('Western'),
+		('Mystery');
+
+INSERT INTO ProductType (ProductTypeName)
+VALUES	('VHS'),
+		('DVD'),
+		('Blu Ray');
+
+INSERT INTO Products (ProductName, MovieDescription, Price, NrInStore, Rating, ProductTypeID)
+VALUES	('Star Wars', 'Luke Skywalker joins forces with a Jedi Knight, a cocky pilot, a Wookiee and two droids to save the galaxy from the Empires world-destroying battle-station while also attempting to rescue Princess Leia from the evil Darth Vader.', 100, 25, 8.6, 1),
+		('Lord of the Rings', 'A meek Hobbit from the Shire and eight companions set out on a journey to destroy the powerful One Ring and save Middle-earth from the Dark Lord Sauron.', 150, 30, 8.8, 2),
+		('Moon', 'Astronaut Sam Bell has a quintessentially personal encounter toward the end of his three-year stint on the Moon, where he, working alongside his computer, GERTY, sends back to Earth parcels of a resource that has helped diminish our planets power problems.', 200, 10, 7.9, 3);
+
+INSERT INTO ProdCat (ProductID, CategoryID)
+VALUES	(1, 13),
+		(1, 1),
+		(1, 2),
+		(2, 2),
+		(2, 7),
+		(2, 8),
+		(3, 7),
+		(3, 13),
+		(3, 18);

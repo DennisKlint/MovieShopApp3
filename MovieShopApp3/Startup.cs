@@ -1,4 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Owin;
+using MovieShopApp3.Models;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(MovieShopApp3.Startup))]
@@ -9,6 +12,61 @@ namespace MovieShopApp3
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            //createRolesandUsers();
         }
+        private void createRolesandUsers()
+        {
+            ApplicationDbContext context = new ApplicationDbContext();
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+
+            // In Startup iam creating first Admin Role and creating a default Admin User 
+            if (!roleManager.RoleExists("Admin"))
+            {
+
+                // create admin roole
+                var role = new Microsoft.AspNet.Identity.EntityFramework.IdentityRole();
+                role.Name = "Admin";
+                roleManager.Create(role);
+
+                //create default admin user 
+                var user = new ApplicationUser();
+                user.UserName = "AdminUser";
+                user.Email = "adminguser@yahoo.com";
+
+                string userPWD = "@Lexicon11";
+
+                var chkUser = UserManager.Create(user, userPWD);
+                //find userID
+                var userid = UserManager.FindByEmail(user.Email).Id;
+
+              
+
+              dbMSA3Entities cont = new dbMSA3Entities();
+                Users obj = new Users();
+                obj.UserID = userid;
+                obj.UserName = user.UserName;
+                obj.Email = user.Email;
+                obj.Adress = "TESTadress";
+                obj.City = "Krallköping";
+                obj.ZipCode = "1212";
+                cont.Users.Add(obj);
+                cont.SaveChanges();
+
+                //Add Stefan to Role Admin
+                if (chkUser.Succeeded)
+                {
+                    var result1 = UserManager.AddToRole(user.Id, "Admin");
+
+                }
+            }
+
+
+
+
+        }
+
     }
 }

@@ -79,6 +79,16 @@ namespace MovieShopApp3.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Adress")]
+        public string Adress { get; set; }
+        [Required]
+        [Display(Name = "City")]
+        public string City { get; set; }
+        [Required]
+        [Display(Name = "ZipCode")]
+        public string ZipCode { get; set; }
     }
 
     public class ResetPasswordViewModel
