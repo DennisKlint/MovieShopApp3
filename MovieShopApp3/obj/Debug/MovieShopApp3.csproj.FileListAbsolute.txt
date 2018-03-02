@@ -83,3 +83,4 @@ C:\Users\stefa\Documents\GitHub\MovieShopApp3\MovieShopApp3\obj\Debug\MovieShopA
 C:\Users\stefa\Documents\GitHub\MovieShopApp3\MovieShopApp3\obj\Debug\MovieShopApp3.Migrations.InitialCreate.resources
 C:\Users\stefa\Documents\GitHub\MovieShopApp3\MovieShopApp3\obj\Debug\MovieShopApp3.csproj.GenerateResource.Cache
 C:\Users\stefa\Documents\GitHub\MovieShopApp3\MovieShopApp3\obj\Debug\MovieShopApp3.Migrations.init.resources
+C:\Users\stefa\Documents\GitHub\MovieShopApp3\MovieShopApp3\obj\Debug\MovieShopApp3.csprojResolveAssemblyReference.cache
