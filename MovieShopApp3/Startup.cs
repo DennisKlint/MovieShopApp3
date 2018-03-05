@@ -3,6 +3,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using MovieShopApp3.Models;
 using Owin;
+using System.Collections.Generic;
+using System.Web;
 
 [assembly: OwinStartupAttribute(typeof(MovieShopApp3.Startup))]
 namespace MovieShopApp3
@@ -13,9 +15,25 @@ namespace MovieShopApp3
         {
             ConfigureAuth(app);
             createRolesandUsers();
-        }
+           
+    }
         private void createRolesandUsers()
         {
+            ////create sessionobject for shopingcart
+            //List<int> cartList = new List<int>();
+            //HttpContext.Current.Session["CartList"] = "test";
+            ////Session["products"] = null;
+
+            //// When retrieving an object from session state, cast it to 
+            //// the appropriate type.
+            //ArrayList stockPicks = (ArrayList)Session["StockPicks"];
+
+            //// Write the modified stock picks list back to session state.
+            //Session["StockPicks"] = stockPicks;
+
+
+
+
             ApplicationDbContext context = new ApplicationDbContext();
 
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));

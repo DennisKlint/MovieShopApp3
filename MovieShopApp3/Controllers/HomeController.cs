@@ -10,6 +10,11 @@ namespace MovieShopApp3.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["CartList"] == null)
+            {
+                List<int> cartList = new List<int>();
+                Session["CartList"] = cartList;
+            }
             return View();
         }
 

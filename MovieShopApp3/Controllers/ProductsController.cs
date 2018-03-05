@@ -17,6 +17,7 @@ namespace MovieShopApp3.Controllers
         // GET: Products
         public ActionResult Index()
         {
+           
             var products = db.Products.Include(p => p.ProductType);
             return View(products.ToList());
         }
@@ -130,38 +131,47 @@ namespace MovieShopApp3.Controllers
         }
 
 
-        public void Purchase(int id)
+        public ActionResult Purchase(int id)
         {
 
-            string sessionId = this.Session.SessionID;
-            Session["sessionsId"] = sessionId;
-            if (Session["prodlist"] == null)
-            {
-                List<int> prodlist = new List<int>();
-                prodlist.Add(id);
-                Session["prodlist"] = prodlist;
+            //string sessionId = this.Session.SessionID;
+            //Session["sessionsId"] = sessionId;
 
-            }
-            else
-            {
-
-
-                Session("prodlist") =
-               
-
-
-            }
            
-           
-           
-          
-
-
-            //string sessionId = System.Web.HttpContext.Current.Session.SessionID;
-
-
-
+            var cartlist = (List<int>)Session["CartList"];
+            cartlist.Add(id);
+           Session["CartList"] = cartlist;
+            //ViewBag.NoofItemsInCart = "sdlfjasljf";
+            return RedirectToAction("Index");
 
         }
+
+        public ActionResult ShopingCartDetails()
+        {
+            dbMSA3Entities cont = new dbMSA3Entities();
+            List<Products> plist = new List<Products>();
+            var cartlist = (List<int>)Session["CartList"];
+            foreach (int itm in cartlist)
+            {
+                Products obj = new Products();
+                obj = cont.Products.Single(x => x.ProductID == itm);
+
+                    //cont.Database.SqlQuery<Products> ( "SELECT * FROM Products WHERE ProductID =@p0 ,'" + itm + "'");
+                plist.Add(obj);
+            }
+          
+            //var products = db.Products.Include(p => p.ProductType);
+            return View(plist);
+        }
+
+
+
+
+        //string sessionId = System.Web.HttpContext.Current.Session.SessionID;
+
+
+
+
     }
-}
+    }
+

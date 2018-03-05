@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:lightgray">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -24,10 +24,35 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                    <li>@Html.ActionLink("Kralls", "Index", "Products")</li>
+                    <li>
+                        @{
+        var cartlist = (List<int>)Session["CartList"];
+        int no = 0;
+        if (!(cartlist == null))
+        {
+            no = cartlist.Count();
+        }
+
+                        }
+
+
+                        <span>
+                            @Html.ActionLink(" ", "shopingCartDetails", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" })
+                        @no</span>
+
+
+
+
+
+                    </li>
+
+
+                   
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
+            
         </div>
     </div>
     <div class="container body-content">
