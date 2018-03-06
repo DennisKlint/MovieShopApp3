@@ -201,6 +201,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProdCatsController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -270,6 +271,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="identity_hide links.txt" />
     <Content Include="Models\MSA3EntityModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MSA3EntityModel.edmx</DependentUpon>
@@ -346,6 +348,11 @@
     <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\ShopingCartDetails.cshtml" />
+    <Content Include="Views\ProdCats\Create.cshtml" />
+    <Content Include="Views\ProdCats\Delete.cshtml" />
+    <Content Include="Views\ProdCats\Details.cshtml" />
+    <Content Include="Views\ProdCats\Edit.cshtml" />
+    <Content Include="Views\ProdCats\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803020819236_InitialCreate.resx">

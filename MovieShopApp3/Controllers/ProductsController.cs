@@ -133,15 +133,19 @@ namespace MovieShopApp3.Controllers
 
         public ActionResult Purchase(int id)
         {
-
+            if (Session["CartList"] == null)
+            {
+                List<int> cartList = new List<int>();
+                Session["CartList"] = cartList;
+            }
             //string sessionId = this.Session.SessionID;
             //Session["sessionsId"] = sessionId;
 
-           
+
             var cartlist = (List<int>)Session["CartList"];
             cartlist.Add(id);
            Session["CartList"] = cartlist;
-            //ViewBag.NoofItemsInCart = "sdlfjasljf";
+          
             return RedirectToAction("Index");
 
         }
@@ -156,22 +160,21 @@ namespace MovieShopApp3.Controllers
                 Products obj = new Products();
                 obj = cont.Products.Single(x => x.ProductID == itm);
 
-                    //cont.Database.SqlQuery<Products> ( "SELECT * FROM Products WHERE ProductID =@p0 ,'" + itm + "'");
                 plist.Add(obj);
             }
           
-            //var products = db.Products.Include(p => p.ProductType);
             return View(plist);
         }
+        public ActionResult DeleteFromBasket(int id)
+        {
 
+            var cartlist = (List<int>)Session["CartList"];
+            cartlist.Remove (id);
+            Session["CartList"] = cartlist;
+            
+            return RedirectToAction("ShopingCartDetails");
 
-
-
-        //string sessionId = System.Web.HttpContext.Current.Session.SessionID;
-
-
-
-
+        }
     }
     }
 

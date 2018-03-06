@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="1df40f478afc4a9db73a836c046d0e68" Name="Diagram1">
-        <EntityTypeShape EntityType="dbMSA3Model.Categories" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMSA3Model.Categories" Width="1.5" PointX="5.125" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMSA3Model.Orders" Width="1.5" PointX="7.625" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMSA3Model.ProdCat" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMSA3Model.ProdOrder" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />

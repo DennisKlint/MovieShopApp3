@@ -1,0 +1,19 @@
+﻿  <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @if (Request.IsAuthenticated)
+					{
+						<li>@Html.ActionLink("Users", "Index", "ApplicationUsers")</li>
+					}
+					else
+					{
+						//do not show link/button
+					}
+                    @if (Roles.IsUserInRole("Admin"))
+					{
+						<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+					}
+					else
+					{
+					//do not show link/button
+					}
