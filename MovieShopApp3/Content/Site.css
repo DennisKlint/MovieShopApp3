@@ -22,6 +22,23 @@ select,
 textarea {
     max-width: 280px;
 }
-span.glyphicon-link {
-    font-size:x-large;
+.glyphicon{
+    font-size:40px;
+}
+.divHeader{
+    height:70px;
+    margin-right:10%;
+   background-color:lightblue;
+ 
+}
+.divShopingCart {
+    height: 40px;
+    width:50px;
+   position :inherit;
+    right:0px;
+    background-color: orange;
+    
+  
+    /*margin-right:0;
+    margin-top :0;*/
 }

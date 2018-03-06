@@ -264,7 +264,7 @@
       <DependentUpon>dbMSA3.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <None Include="Content\bootstrap.min.krall" />
     <Content Include="Content\graphics\blu-ray-icon-8267.png" />
     <Content Include="Content\graphics\dvd.png" />
     <Content Include="Content\graphics\vhs.jpg" />
