@@ -245,6 +245,7 @@
     <Compile Include="Models\ProdOrder.cs">
       <DependentUpon>MSA3EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ProductCategoriesViewModel.cs" />
     <Compile Include="Models\Products.cs">
       <DependentUpon>MSA3EntityModel.tt</DependentUpon>
     </Compile>

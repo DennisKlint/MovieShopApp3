@@ -175,6 +175,48 @@ namespace MovieShopApp3.Controllers
             return RedirectToAction("ShopingCartDetails");
 
         }
+
+        public ActionResult ShopingCart()
+        {
+            dbMSA3Entities cont = new dbMSA3Entities();
+            List<Products> plist = new List<Products>();
+            List<ProductCategoriesViewModel> productCategoryList = new List<ProductCategoriesViewModel>();
+
+            //Contains a list of ID's, we'll use this to find the correct products
+            var cartlist = (List<int>)Session["CartList"];
+            foreach (int itm in cartlist)
+            {
+                List<Categories> categories = new List<Categories>();
+
+                //Find and save the product linked to the ID
+                Products obj = new Products();
+                obj = cont.Products.Single(x => x.ProductID == itm);
+
+                //find each category "linked" to the product, and add it to our category list
+                foreach (var prodCat in cont.ProdCat.Where(x => x.ProductID == obj.ProductID))
+                {
+
+                    //This query will find the category 
+                    IEnumerable<Categories> query = from c in cont.Categories where c.CategoryID == prodCat.CategoryID select c;
+
+                    //for each category, add it to a temporary list, so we can include it into our final list
+                    foreach (Categories category in query)
+                    {
+                        categories.Add(category);
+                    }
+
+
+                }
+                productCategoryList.Add(new ProductCategoriesViewModel(obj.ProductID, obj.ProductName, obj.Price, obj.ProductTypeID, categories));
+
+                //cont.Database.SqlQuery<Products> ( "SELECT * FROM Products WHERE ProductID =@p0 ,'" + itm + "'");
+                plist.Add(obj);
+            }
+
+            //var products = db.Products.Include(p => p.ProductType);
+            return View(productCategoryList);
+        }
+
     }
     }
 
