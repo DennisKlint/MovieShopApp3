@@ -13,23 +13,13 @@ namespace MovieShopApp3.Models
      */
     public class ProductCategoriesViewModel
     {
-
-        public ProductCategoriesViewModel(int id, string name, int price, int productTypeId, List<Categories> cat)
-        {
-            ProductID = id;
-            ProductName = name;
-            Price = price;
-            ProductTypeID = productTypeId;
-            Category = cat;
-        }
-
         private List<Categories> productCategories = new List<Categories>();
 
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public int Price { get; set; }
         public int ProductTypeID { get; set; }
-        public List<Categories> Category
+        public List<Categories> Cagetory
         {
             get { return productCategories; }
             set { productCategories = value; }
