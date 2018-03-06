@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MovieShopApp3.Models.ProductCategoriesViewModel>
+
+@{
+    ViewBag.Title = "ShopingCart";
+}
+
+<h2>ShopingCart</h2>
+
+<p>
+    @Html.ActionLink("Back to products", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductTypeID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model){
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @foreach (var category in item.Category) {
+                @Html.DisplayFor(modelItem => category.CategoryName) 
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductTypeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+    </tr>
+
+}
+
+</table>
