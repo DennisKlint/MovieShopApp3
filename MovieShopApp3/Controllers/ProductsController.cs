@@ -41,6 +41,7 @@ namespace MovieShopApp3.Controllers
         public ActionResult Create()
         {
             ViewBag.ProductTypeID = new SelectList(db.ProductType, "ProductTypeID", "ProductTypeName");
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             return View();
         }
 
@@ -49,11 +50,33 @@ namespace MovieShopApp3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,MovieDescription,Price,NrInStore,Rating,ProductTypeID")] Products products)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,MovieDescription,Price,NrInStore,Rating,ProductTypeID,Category")] FullProductAndCategoriesModel dataModel)
         {
+            Products products = new Products()
+            {
+                ProductID = dataModel.ProductID,
+                ProductName = dataModel.ProductName,
+                MovieDescription = dataModel.MovieDescription,
+                Price = dataModel.Price,
+                NrInStore = dataModel.NrInStore,
+                Rating = dataModel.Rating,
+                ProductTypeID = dataModel.ProductTypeID
+            };
+
             if (ModelState.IsValid)
             {
+
+                List<Categories> categories = new List<Categories>(dataModel.Category);
+
                 db.Products.Add(products);
+                foreach (var cat in dataModel.Category)
+                {
+                    ProdCat prodCat = new ProdCat() {
+                        ProductID = products.ProductID,
+                        CategoryID = cat.CategoryID };
+
+                    db.ProdCat.Add(prodCat);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
