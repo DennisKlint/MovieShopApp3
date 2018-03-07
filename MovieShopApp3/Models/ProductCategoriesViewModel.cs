@@ -35,5 +35,7 @@ namespace MovieShopApp3.Models
             set { productCategories = value; }
         }
 
+        public virtual ProductType ProductType { get; set; }
+
     }
 }

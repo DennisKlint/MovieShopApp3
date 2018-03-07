@@ -219,6 +219,7 @@
     <Compile Include="Models\Categories.cs">
       <DependentUpon>MSA3EntityModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FullProductAndCategoriesModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MSA3EntityModel.Context.cs">
@@ -354,6 +355,7 @@
     <Content Include="Views\ProdCats\Details.cshtml" />
     <Content Include="Views\ProdCats\Edit.cshtml" />
     <Content Include="Views\ProdCats\Index.cshtml" />
+    <Content Include="Views\Products\ShopingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201803020819236_InitialCreate.resx">

@@ -178,8 +178,8 @@ namespace MovieShopApp3.Controllers
 
         public ActionResult ShopingCart()
         {
+
             dbMSA3Entities cont = new dbMSA3Entities();
-            List<Products> plist = new List<Products>();
             List<ProductCategoriesViewModel> productCategoryList = new List<ProductCategoriesViewModel>();
 
             //Contains a list of ID's, we'll use this to find the correct products
@@ -207,13 +207,11 @@ namespace MovieShopApp3.Controllers
 
 
                 }
-                productCategoryList.Add(new ProductCategoriesViewModel(obj.ProductID, obj.ProductName, obj.Price, obj.ProductTypeID, categories));
-
-                //cont.Database.SqlQuery<Products> ( "SELECT * FROM Products WHERE ProductID =@p0 ,'" + itm + "'");
-                plist.Add(obj);
+            productCategoryList.Add(new ProductCategoriesViewModel(obj.ProductID, obj.ProductName, obj.Price, obj.ProductTypeID, categories));
             }
 
             //var products = db.Products.Include(p => p.ProductType);
+            ViewBag.ProductTypeID = new SelectList(db.ProductType, "ProductTypeID", "ProductTypeName");
             return View(productCategoryList);
         }
 
