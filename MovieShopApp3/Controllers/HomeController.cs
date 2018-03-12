@@ -15,6 +15,7 @@ namespace MovieShopApp3.Controllers
                 List<int> cartList = new List<int>();
                 Session["CartList"] = cartList;
             }
+         
             return View();
         }
 

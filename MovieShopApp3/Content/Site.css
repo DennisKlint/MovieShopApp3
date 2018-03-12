@@ -22,6 +22,72 @@ select,
 textarea {
     max-width: 280px;
 }
-span.glyphicon-link {
-    font-size:x-large;
+.glyphicon{
+    font-size:40px;
 }
+.navbarCustom {
+    background-image: url('graphics/stripe3.jpg');
+
+
+}
+#Html.ActionLink {
+    color: chartreuse;
+}
+#Html.ActionLink.hover {
+        color: lightcoral;
+    }
+.divWrapper {
+    height: 100%;
+    width: 80%;
+    /*border-radius:10px;*/
+    background-color: red;
+} 
+.divLeftStripe {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    background-image: url('graphics/stripe.png');
+  background-size:cover;
+   
+}
+.divRightStripe {
+    height: 100%;
+    width: 250px;
+    position:fixed;
+    z-index: 1;
+    top: 0;
+    right:0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    background-image: url('graphics/stripe.png');
+    background-size: cover;
+}
+.divShopingCart {
+    height: 40px;
+    width: 50px;
+    /*position: inherit;
+    right: 0px;*/
+    background-color: orange;
+}
+.divCarouselCustom {
+    /*background: linear-gradient(to bottom, #829254,#bdc79e,#dfe4d0);*/
+    /*border-radius: 10px;*/
+    /*box-shadow: 10px 0px 50px 10.0px black;*/
+    box-shadow : 10px 10px silver;
+    -moz-box-shadow: inherit;
+    -webkit-box-shadow: inherit;
+}
+.footerCustom{
+    text-align:center;
+    background-color :black;
+    vertical-align:central ;
+    height:50px;
+}
+   
