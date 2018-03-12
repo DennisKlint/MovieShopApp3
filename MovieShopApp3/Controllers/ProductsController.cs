@@ -21,7 +21,7 @@ namespace MovieShopApp3.Controllers
             var products = db.Products.Include(p => p.ProductType);
             return View(products.ToList());
         }
-
+       
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -140,7 +140,7 @@ namespace MovieShopApp3.Controllers
             }
             //string sessionId = this.Session.SessionID;
             //Session["sessionsId"] = sessionId;
-
+            
 
             var cartlist = (List<int>)Session["CartList"];
             cartlist.Add(id);

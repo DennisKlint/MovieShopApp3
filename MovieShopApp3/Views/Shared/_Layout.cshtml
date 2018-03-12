@@ -5,54 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title MovieApp3</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+
+   
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css"/>
+
+
+
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="background-color:lavender">
-        <div class="container">
-            <div class="navbar-header">
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <p>&nbsp;</p>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
-                    <li style="margin-right:330px">@Html.ActionLink("Products", "Index", "Products")</li>
-                    <li style="margin-right:40px">@Html.Partial("_LoginPartial")</li>
-                    @{
-        var cartlist = (List<int>)Session["CartList"];
-        int no = 0;
-        if (!(cartlist == null))
-        {
-            no = cartlist.Count();
-        }
-                    }
+            <div class="col-sm">
+                <div>
 
-                    <li>@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" })    @no &nbsp;items</li>
-                </ul>
+                    <div class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+
+                                <a href="Index.cshtml"><img src="~/Content/graphics/logga.png" title="title" alt="additional title" style="height:50px; width:80px" /></a>
+                                @*  @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
+                                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                                    <li>
+                                        @Html.ActionLink("Autotest", "Index", "TEST")
+
+                                    </li>
+                                    <li>@Html.Partial("_LoginPartial")</li>
+                                    @{
+                                        var cartlist = (List<int>)Session["CartList"];
+                                        int no = 0;
+                                        if (!(cartlist == null))
+                                        {
+                                            no = cartlist.Count();
+                                        }
+                                    }
+
+                                    <li>@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" }) </> </li>
+                                    <li>&nbsp; @no</li>
+                                </ul>
 
 
-               
-                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
 
-                
+                        <div id="myCarousel" class="carousel slide divCarouselCustom" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <img src="~/Content/graphics/1.jpg" alt="" style="width:100%; height :300px;">
+                                </div>
+
+                                <div class="item">
+                                    <img src="~/Content/graphics/2.jpg" alt="" style="width:100%; height :300px;">
+                                </div>
+
+                                <div class="item">
+                                    <img src="~/Content/graphics/3.jpg" alt="" style="width:100%; height :300px;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm" style="margin-top :20px">
+                        <div class="navbar">
+                            <div class="container">
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav">
+                                        <li>@Html.ActionLink("Action", "Index", "Home")</li>
+                                        <li>@Html.ActionLink("Comedy", "About", "Home")</li>
+                                        <li>@Html.ActionLink("Adventure", "Index", "ProdCats")</li>
+                                        <li>@Html.ActionLink("Drama", "Index", "Products")</li>
+                                        <li>@Html.ActionLink("Horror", "Index", "Products")</li>
+                                        <li>@Html.ActionLink("Si-Fi", "Index", "Products")</li>
+                                        <li>@Html.ActionLink("Drama", "Index", "Products")</li>
+                                        <li>@Html.ActionLink("War", "Index", "Products")</li>
+                                        <li>@Html.ActionLink("Adult", "Index", "Products")</li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container body-content">
+                        @RenderBody()
+
+
+
+
+                    </div>
+                </div>  @*end div wrapper*@
             </div>
-          
 
+
+            <footer class="navbar-fixed-bottom footerCustom">
+                <p>&copy; @DateTime.Now.Year -MovieShop3</p>
+            </footer>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My Krall Application</p>
-        </footer>
-    </div>
+
+
+    @Scripts.Render("~/bundles/modernizr")
 
     @Scripts.Render("~/bundles/jquery")
+   
+    @Scripts.Render("~/bundles/MovieShopScripts")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>
