@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Category)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductTypeID)
+            @Html.DisplayNameFor(model => model.ProductType.ProductTypeName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Price)
@@ -38,15 +38,28 @@
             @Html.DisplayFor(modelItem => item.ProductName)
         </td>
         <td>
-            @foreach (var category in item.Category) {
-                @Html.DisplayFor(modelItem => category.CategoryName) 
+            | @foreach (var category in item.Category) { @Html.DisplayFor(modelItem => category.CategoryName) @:| 
             }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductTypeID)
+            @if (item.ProductTypeID == 1)
+            {
+            <img src="~/Content/graphics/vhs.jpg" style="height :30px; width :30px" />
+            }
+            else if (item.ProductTypeID == 2)
+            {
+            <img src="~/Content/graphics/dvd.png" style="height :30px; width :30px" />
+            }
+            else if (item.ProductTypeID == 3)
+            {
+            <img src="~/Content/graphics/blu-ray-icon-8267.png" style="height :30px; width :30px" />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Remove", "DeleteFromBasket", new { id = item.ProductID })
         </td>
     </tr>
 
