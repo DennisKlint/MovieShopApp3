@@ -59,6 +59,9 @@
         <td>
             @Html.DisplayFor(modelItem => item.Price)
         </td>
+        <td>
+            @Html.ActionLink("Remove", "DeleteFromBasket", new { id = item.ProductID })
+        </td>
     </tr>
 
 }

@@ -195,7 +195,7 @@ namespace MovieShopApp3.Controllers
             cartlist.Remove (id);
             Session["CartList"] = cartlist;
             
-            return RedirectToAction("ShopingCartDetails");
+            return RedirectToAction("ShopingCart");
 
         }
 
