@@ -1,0 +1,64 @@
+﻿@model MovieShopApp3.Models.ProductsAndUserModel
+
+@{
+    ViewBag.Title = "MakeOrder";
+}
+
+<h2>MakeOrder</h2>
+
+<div class="col-md-6">
+    <table class="table">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Price
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
+
+        }
+        <tr>
+            <th>
+                Nr: @Model.Products.Count()
+            </th>
+            <th>
+
+            </th>
+            <th>
+                @Model.Products.Sum(item => item.Price)
+            </th>
+        </tr>
+    </table>
+</div>
+<div class="well col-md-6">
+    @Html.DisplayNameFor(model => model.Address) : 
+    @Html.DisplayFor(model => model.Address)
+    <br/>
+    @Html.DisplayNameFor(model => model.City) :
+    @Html.DisplayFor(model => model.City)
+    <br/>
+    @Html.DisplayNameFor(model => model.ZipCode) :
+    @Html.DisplayFor(model => model.ZipCode)
+    <br/>
+    @Html.ActionLink("Place Order", "Index", null, new { @class = "testclass" })
+</div>

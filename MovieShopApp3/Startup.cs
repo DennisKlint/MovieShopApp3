@@ -51,8 +51,11 @@ namespace MovieShopApp3
 
                 //create default admin user 
                 var user = new ApplicationUser();
-                user.UserName = "AdminUser";
-                user.Email = "adminguser@yahoo.com";
+                user.UserName = "adminuser@yahoo.com";
+                user.Email = "adminuser@yahoo.com";
+                user.Adress = "TESTadress";
+                user.City = "Krallköping";
+                user.ZipCode = "1212";
 
                 string userPWD = "@Lexicon11";
 
@@ -67,9 +70,9 @@ namespace MovieShopApp3
                 obj.UserID = userid;
                 obj.UserName = user.UserName;
                 obj.Email = user.Email;
-                obj.Adress = "TESTadress";
-                obj.City = "Krallköping";
-                obj.ZipCode = "1212";
+                obj.Adress = user.Adress;
+                obj.City = user.City;
+                obj.ZipCode = user.ZipCode;
                 cont.Users.Add(obj);
                 cont.SaveChanges();
 
