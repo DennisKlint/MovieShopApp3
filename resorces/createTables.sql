@@ -44,7 +44,7 @@ CREATE TABLE [dbo].[Orders]
 	[UserID] 	NVARCHAR (128) NOT NULL,
     	[OrderSent] 	BIT NOT NULL DEFAULT 0,
 	[OrderSentDate]	DATE NOT NULL,
-    	[OrderDateTime]	DATETIME NOT NULL,
+    	[OrderDateTime]	DATETIME DEFAULT (GETDATE()) NOT NULL,
 	CONSTRAINT 	[FK_Orders_UserID] FOREIGN KEY ([UserID]) REFERENCES [Users]([UserID]) ON DELETE CASCADE
 );
 

@@ -10,7 +10,7 @@
     <table class="table">
         <tr>
             <th>
-                ID
+                #ID
             </th>
             <th>
                 Title
@@ -51,14 +51,24 @@
     </table>
 </div>
 <div class="well col-md-6">
-    @Html.DisplayNameFor(model => model.Address) : 
+
+    <label for="contactInfo">Your Info</label>
+    <br />
+    @Html.DisplayNameFor(model => model.Address) :
     @Html.DisplayFor(model => model.Address)
-    <br/>
+    <br />
     @Html.DisplayNameFor(model => model.City) :
     @Html.DisplayFor(model => model.City)
-    <br/>
+    <br />
     @Html.DisplayNameFor(model => model.ZipCode) :
     @Html.DisplayFor(model => model.ZipCode)
-    <br/>
-    @Html.ActionLink("Place Order", "Index", null, new { @class = "testclass" })
+    <br />
+    <br />
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label for="formControlInput">Your Bank info</label>
+            <input type="number" class="form-control" placeholder="Your money here" />
+        </div>
+    </div>
+    @Html.ActionLink("Place Order", "Ordered", null, new { @class = "testclass" })
 </div>

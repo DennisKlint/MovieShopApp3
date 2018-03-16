@@ -20,6 +20,44 @@ namespace MovieShopApp3.Controllers
         // GET: Orders
         public ActionResult Index()
         {
+            //Establish a connection so we can find the logged in user
+            ApplicationDbContext context = new ApplicationDbContext();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            if (User.IsInRole("Admin")) { }
+            else
+            {
+                var userid = User.Identity.GetUserId();
+                var query = from order in db.Orders where order.UserID == userid select order;
+
+                var orderProductsList = new List<OrderAndProductsModel>();
+                foreach (var order in query)
+                {
+                    var query2 = from prodOrder in db.ProdOrder where prodOrder.OrderID == order.OrderID select prodOrder;
+
+                    var prodList = new List<Products>();
+
+                    foreach (var prodOrder in query2)
+                    {
+                        var product = new Products();
+                        product = db.Products.Single(x => x.ProductID == prodOrder.ProductID);
+                        prodList.Add(product);
+                        //Need to get the products, and orders, into a list of OrderAndProductsModel
+                    }
+                    orderProductsList.Add(new OrderAndProductsModel()
+                    {
+                        OrderID = order.OrderID,
+                        UserID = order.UserID,
+                        OrderDateTime = order.OrderDateTime,
+                        OrderSent = order.OrderSent,
+                        OrderSentDate = order.OrderSentDate,
+                        Product = new List<Products>(prodList)
+                    });
+                }
+                return View(orderProductsList);
+            }
+
             var orders = db.Orders.Include(o => o.Users);
             return View(orders.ToList());
         }
@@ -148,10 +186,12 @@ namespace MovieShopApp3.Controllers
                 productsUser.Products.Add(obj);
             }
 
+            //Establish a connection so we can find the logged in user
             ApplicationDbContext context = new ApplicationDbContext();
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
+            //Save the user to a variable, so we can extract the needed attributes
             var user = UserManager.FindById(User.Identity.GetUserId());
 
             productsUser.Address = user.Adress;
@@ -159,6 +199,37 @@ namespace MovieShopApp3.Controllers
             productsUser.ZipCode = user.ZipCode;
 
             return View(productsUser);
+        }
+
+        public ActionResult Ordered()
+        {
+
+            //Establish a connection so we can find the logged in user
+            ApplicationDbContext context = new ApplicationDbContext();
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
+
+            //Save the user to a variable, so we can extract the needed attributes
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            var order = new Orders() {
+                UserID = user.Id,
+                OrderDateTime = System.DateTime.Now.ToString()
+            };
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            var orderId = order.OrderID;
+
+            var cartlist = (List<int>)Session["CartList"];
+            foreach (int itm in cartlist)
+            {
+                db.ProdOrder.Add(new ProdOrder() { ProductID = itm, OrderID = orderId });
+            }
+            db.SaveChanges();
+
+
+            return View();
         }
     }
 }
