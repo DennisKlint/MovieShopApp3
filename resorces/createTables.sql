@@ -38,14 +38,14 @@ CREATE TABLE [dbo].[ProdCat]
 	CONSTRAINT 	[FK_ProdCat_CategoryID] FOREIGN KEY ([CategoryID]) REFERENCES [Categories]([CategoryID]) ON DELETE CASCADE
 );
 
-CREATE TABLE [dbo].[Orders]
-(
-	[OrderID] 	INT NOT NULL PRIMARY KEY IDENTITY, 
-	[UserID] 	NVARCHAR (128) NOT NULL,
-    	[OrderSent] 	BIT NOT NULL DEFAULT 0,
-	[OrderSentDate]	DATE NOT NULL,
-    	[OrderDateTime]	DATETIME DEFAULT (GETDATE()) NOT NULL,
-	CONSTRAINT 	[FK_Orders_UserID] FOREIGN KEY ([UserID]) REFERENCES [Users]([UserID]) ON DELETE CASCADE
+CREATE TABLE [dbo].[Orders] (
+    [OrderID]       INT            IDENTITY (1, 1) NOT NULL,
+    [UserID]        NVARCHAR (128) NOT NULL,
+    [OrderSent]     BIT            DEFAULT ((0)) NOT NULL,
+    [OrderSentDate] DATE           NULL,
+    [OrderDateTime] NVARCHAR (128) NOT NULL,
+    PRIMARY KEY CLUSTERED ([OrderID] ASC),
+    CONSTRAINT [FK_Orders_UserID] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID]) ON DELETE CASCADE
 );
 
 CREATE TABLE [dbo].[ProdOrder]
