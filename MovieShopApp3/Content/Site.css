@@ -80,14 +80,38 @@ textarea {
     /*background: linear-gradient(to bottom, #829254,#bdc79e,#dfe4d0);*/
     /*border-radius: 10px;*/
     /*box-shadow: 10px 0px 50px 10.0px black;*/
-    box-shadow : 10px 10px silver;
+    /*box-shadow : 10px 10px silver;
     -moz-box-shadow: inherit;
-    -webkit-box-shadow: inherit;
+    -webkit-box-shadow: inherit;*/
 }
 .footerCustom{
+    margin-top:50px;
     text-align:center;
     background-color :black;
     vertical-align:central ;
     height:50px;
 }
-   
+.divLogin {
+    margin: 0 auto;
+    width: 700px;
+    background-color: lightgray;
+    box-shadow: 10px 10px silver;
+}
+.divRegister {
+  
+    /*margin-top: 50px;
+    margin-bottom :50px;*/
+    /*text-align:center ;*/
+   /*vertical-align:central;*/
+    width:700px;
+    background-color: lightgray;
+    box-shadow: 10px 10px silver;
+}
+.divCategories{
+    margin-top :20px;
+    margin-bottom :20px;
+    /*margin: 0 auto;
+    width: 700px;*/
+    background-color: lightgray;
+    /*box-shadow: 10px 10px silver;*/
+}

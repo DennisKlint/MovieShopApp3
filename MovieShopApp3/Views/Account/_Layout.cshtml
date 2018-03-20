@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title MovieApp3</title>
+    @Styles.Render("~/Content/css")
+
+
+
+
+
+
+
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <p>&nbsp;</p>
+            </div>
+            <div class="col-sm">
+                <div>
+
+                    <div class="navbar navbar-inverse navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+
+                                <a href="Index.cshtml"><img src="~/Content/graphics/logga.png" title="title" alt="additional title" style="height:50px; width:80px" /></a>
+                                @*  @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+                            </div>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                                    <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
+                                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                                    <li>
+
+                                        @Html.ActionLink("Autotest", "Index", "TEST")
+
+                                    </li>
+                                    <li>@Html.Partial("_LoginPartial")</li>
+                                    @{
+                                        var cartlist = (List<int>)Session["CartList"];
+                                        int no = 0;
+                                        if (!(cartlist == null))
+                                        {
+                                            no = cartlist.Count();
+                                        }
+                                    }
+
+                                    <li>@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" }) </> </li>
+                                    <li>&nbsp; @no</li>
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                  
+                  
+                    <div class="container body-content">
+                        @RenderBody()
+
+
+
+
+                    </div>
+                </div>  @*end div wrapper*@
+            </div>
+            <br /><br /><br /><br />
+
+            <footer class="navbar-fixed-bottom footerCustom">
+                <p>&copy; @DateTime.Now.Year -MovieShop3</p>
+            </footer>
+        </div>
+    </div>
+
+
+
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/MovieShopScripts")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

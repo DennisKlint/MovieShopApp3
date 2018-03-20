@@ -9,29 +9,6 @@
 </p>
 @*<div class="container">
 
-        <div id="myCarousel" class="carousel slide divCarouselCustom" data-ride="carousel">
-
-
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="~/Content/graphics/1.jpg" alt="" style="width:100%; height :300px;">
-                </div>
-
-                <div class="item">
-                    <img src="~/Content/graphics/2.jpg" alt="" style="width:100%; height :300px;">
-                </div>
-
-                <div class="item">
-                    <img src="~/Content/graphics/3.jpg" alt="" style="width:100%; height :300px;">
-                </div>
-            </div>
-
-        </div>
-    </div>*@
-
-
-@*<div class="container">
-
     <div class="row">
         @Html.Action("PartialViewCategories", "Categories")
     </div>
@@ -86,9 +63,9 @@
                     @*@Ajax.ActionLink("Buy", "Purchase", new { id = item.ProductID }, new AjaxOptions
                     {
                         HttpMethod = "post",
-                        //UpdateTargetId = "divtest",
-                        InsertionMode = InsertionMode.Replace,
-                        OnSuccess = "OnSuccessMethod"
+                        UpdateTargetId = "ajaxTable",
+                        InsertionMode = InsertionMode.Replace
+                        //OnSuccess = "OnSuccessMethod"
 
                     })*@
                     @Html.ActionLink("Details", "Details", new { id = item.ProductID })

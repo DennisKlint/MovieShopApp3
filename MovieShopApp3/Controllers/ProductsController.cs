@@ -19,6 +19,7 @@ namespace MovieShopApp3.Controllers
         {
            
             var products = db.Products.Include(p => p.ProductType);
+
             return View(products.ToList());
         }
        
@@ -164,16 +165,19 @@ namespace MovieShopApp3.Controllers
                 List<int> cartList = new List<int>();
                 Session["CartList"] = cartList;
             }
-            //string sessionId = this.Session.SessionID;
-            //Session["sessionsId"] = sessionId;
-            
-
             var cartlist = (List<int>)Session["CartList"];
             cartlist.Add(id);
            Session["CartList"] = cartlist;
           
+            int no = 0;
+            if (!(cartlist == null))
+            {
+                no = cartlist.Count();
+            }
+          
+            Session["noOfitems"] = no;
+            //var products = db.Products.Include(p => p.ProductType);
             return RedirectToAction("Index");
-
         }
 
         public ActionResult ShopingCartDetails()
@@ -197,7 +201,7 @@ namespace MovieShopApp3.Controllers
             var cartlist = (List<int>)Session["CartList"];
             cartlist.Remove (id);
             Session["CartList"] = cartlist;
-            
+            Session["noOfitems"] = Convert.ToInt32( Session["noOfitems"]) - 1;
             return RedirectToAction("ShopingCart");
 
         }
@@ -206,7 +210,11 @@ namespace MovieShopApp3.Controllers
         {
             dbMSA3Entities cont = new dbMSA3Entities();
             List<ProductCategoriesViewModel> productCategoryList = new List<ProductCategoriesViewModel>();
-
+            if (Session["CartList"] == null)
+            {
+                List<int> cartList = new List<int>();
+                Session["CartList"] = cartList;
+            }
             //Contains a list of ID's, we'll use this to find the correct products
             var cartlist = (List<int>)Session["CartList"];
             foreach (int itm in cartlist)
@@ -238,7 +246,18 @@ namespace MovieShopApp3.Controllers
 
             return View(productCategoryList);
         }
-
+        public ActionResult PartialViewShopingBasket()
+        {
+            Session["noOfitems"] = null;
+            var cartlist = (List<int>)Session["CartList"];
+            int no = 0;
+            if (!(cartlist == null))
+            {
+                no = cartlist.Count();
+            }
+            Session["noOfitems"] = no;
+            return PartialView("PartialViewShopingBasket");
+        }
     }
     }
 
