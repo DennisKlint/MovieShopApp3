@@ -44,6 +44,7 @@
     <Property Name="NrInStore" Type="int" Nullable="false" />
     <Property Name="Rating" Type="float" Nullable="false" />
     <Property Name="ProductTypeID" Type="int" Nullable="false" />
+    <Property Name="imgUrl" Type="nchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="ProductType">
     <Key>

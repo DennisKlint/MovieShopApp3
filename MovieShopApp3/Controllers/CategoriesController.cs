@@ -11,13 +11,20 @@ namespace MovieShopApp3.Controllers
     {
         private dbMSA3Entities db = new dbMSA3Entities();
         // GET: Categories
-        public ActionResult PartialViewCategories()
+        public ActionResult Index()
         {
             var cat = db.Categories;
 
-            return PartialView("PartialViewCategories",cat.ToList());
-           
+            return PartialView("PartialViewCategories", cat.ToList());
+
         }
+        //public ActionResult PartialViewCategories()
+        //{
+        //    var cat = db.Categories;
+
+        //    return PartialView("PartialViewCategories",cat.ToList());
+           
+        //}
         public ActionResult showByCategory(int id)
         {
             Session["selectedCat"] = id;

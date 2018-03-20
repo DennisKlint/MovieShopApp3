@@ -41,6 +41,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="dbMSA3Model.Products">
         <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="imgUrl" ColumnName="imgUrl" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="MovieDescription" ColumnName="MovieDescription" />
