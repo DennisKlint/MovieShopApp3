@@ -1,0 +1,82 @@
+﻿@model IEnumerable<MovieShopApp3.Models.OrderAndProductsModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders for User...</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div ng-app="myApp" ng-controller="myCtrl">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div role="tabpanel">
+                        <p>{{ text }}</p>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <table>
+                        @foreach (var prod in item.Product)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelProd => prod.ProductID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelProd => prod.ProductName)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderSent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderSentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDateTime)
+            </th>
+            <th>
+                @*Html.DisplayNameFor(model => model.Users.UserName)*@
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderSent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderSentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderDateTime)
+                </td>
+                <td>
+                    @*Html.DisplayFor(modelItem => item.Users.UserName)*@
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

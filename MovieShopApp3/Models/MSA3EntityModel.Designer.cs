@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\stefa\Documents\GitHub\test\MovieShopApp3\MovieShopApp3\Models\MSA3EntityModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Lexicon\documents\visual studio 2015\Projects\MovieShopApp3\MovieShopApp3\Models\MSA3EntityModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -23,8 +23,8 @@ namespace MovieShopApp3.Models
         public int OrderID { get; set; }
         public string UserID { get; set; }
         public bool OrderSent { get; set; }
-        public System.DateTime OrderSentDate { get; set; }
-        public System.DateTime OrderDateTime { get; set; }
+        public Nullable<System.DateTime> OrderSentDate { get; set; }
+        public string OrderDateTime { get; set; }
     
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
