@@ -4,79 +4,79 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Orders for User...</h2>
+<h2>Orders for @User.Identity.Name</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<div ng-app="myApp" ng-controller="myCtrl">
+<div @*ng-app="myApp" ng-controller="myCtrl"*@ @*ng-app="tabApp"*@ >
+    
     @foreach (var item in Model)
     {
-        <div class="col-md-4">
-            <div class="panel panel-primary">
+        <div class="col-md-4" ng-controller="TabController">
+            <div class='panel @(item.OrderSent==true?"panel-success":"panel-warning")'>
                 <div class="panel-heading">
                     <div role="tabpanel">
-                        <p>{{ text }}</p>
+
+                        <div class="container">
+                            <div class="row">
+                                <ul class="nav nav-pills">
+                                    <li ng-class="{ active: isSet(@item.OrderID+'1') }" ng-init="setTab(@item.OrderID+'1')">
+                                        <a href ng-click="setTab(@item.OrderID+'1')">Order</a>
+                                    </li>
+                                    <li ng-class="{ active: isSet(@item.OrderID+'2') }">
+                                        <a href ng-click="setTab(@item.OrderID+'2')">Products</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <table>
-                        @foreach (var prod in item.Product)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelProd => prod.ProductID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelProd => prod.ProductName)
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
+
+                    
+                    <div class="container">
+                        <div class="row">
+
+                            <div ng-show="isSet(@item.OrderID+'1')">
+                                Order ID: 
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                                <br />
+                                Order Date: 
+                                @Html.DisplayFor(modelItem => item.OrderDateTime)
+                                <br />
+                                Sent Status: 
+                                @Html.DisplayFor(modelItem => item.OrderSent)
+                                <br />
+                                @if (item.OrderSent) { 
+                                    @:Sent Date:  
+                                    @Html.DisplayFor(modelItem => item.OrderSentDate)
+                                }
+                            </div>
+                            <div ng-show="isSet(@item.OrderID+'2')">
+                                <table>
+                                    @foreach (var prod in item.Product)
+                                    {
+                                        <tr class="well">
+                                            <td>
+                                                Prod ID: 
+                                                @Html.DisplayFor(modelProd => prod.ProductID)
+                                            </td>
+                                            <td>
+                                                Title: 
+                                                @Html.DisplayFor(modelProd => prod.ProductName)
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        
+                    </div>
             </div>
         </div>
     }
-
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderSent)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderSentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OrderDateTime)
-            </th>
-            <th>
-                @*Html.DisplayNameFor(model => model.Users.UserName)*@
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderSent)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderSentDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.OrderDateTime)
-                </td>
-                <td>
-                    @*Html.DisplayFor(modelItem => item.Users.UserName)*@
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.OrderID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.OrderID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.OrderID })
-                </td>
-            </tr>
-        }
-
-    </table>
 </div>

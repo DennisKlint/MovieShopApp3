@@ -8,10 +8,9 @@
                 data: { Prefix: request.term },
                 success: function (data) {
                     response($.map(data, function (item) {
-                      
+
                         return { label: item.ProductName, value: item.ProductName };
                     }))
-
                 }
             })
         },
@@ -22,8 +21,26 @@
 });
 sadfs
 
-var app = angular.module("myApp", []);
 
+
+angular.module('tabsDemoDynamicHeight', ['ngMaterial']);
+
+
+var app = angular.module("myApp", []);
 app.controller("myCtrl", function ($scope) {
     $scope.text = "Success";
+
 });
+
+angular.module('tabApp', [])
+  .controller('TabController', ['$scope', function ($scope) {
+      $scope.tab = 1;
+
+      $scope.setTab = function (newTab) {
+          $scope.tab = newTab;
+      };
+
+      $scope.isSet = function (tabNum) {
+          return $scope.tab === tabNum;
+      };
+  }]);

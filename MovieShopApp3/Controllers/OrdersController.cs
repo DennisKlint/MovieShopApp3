@@ -45,6 +45,9 @@ namespace MovieShopApp3.Controllers
                         prodList.Add(product);
                         //Need to get the products, and orders, into a list of OrderAndProductsModel
                     }
+
+                    List<Products> SortedList = prodList.OrderBy(o => o.ProductID).ToList();
+
                     orderProductsList.Add(new OrderAndProductsModel()
                     {
                         OrderID = order.OrderID,
@@ -52,7 +55,7 @@ namespace MovieShopApp3.Controllers
                         OrderDateTime = order.OrderDateTime,
                         OrderSent = order.OrderSent,
                         OrderSentDate = order.OrderSentDate,
-                        Product = new List<Products>(prodList)
+                        Product = new List<Products>(SortedList)
                     });
                 }
                 return View(orderProductsList);

@@ -8,7 +8,7 @@
 
 
 </head>
-<body>
+<body ng-app="tabApp">
 
 
     <div class="container">
@@ -33,6 +33,9 @@
                             <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
 
                             <li>
+                                <li>@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" }) </> </li>
+                                <li>{{@Session["noOfitems"]}}</li>
+                                @* <li id="divtest"> @{Html.RenderAction("PartialViewShopingBasket");}</li>*@
 
                             </li>
                             <li>@Html.Partial("_LoginPartial")</li>
