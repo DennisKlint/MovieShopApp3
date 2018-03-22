@@ -31,6 +31,7 @@ textarea {
 
 }
 #Html.ActionLink {
+    text-decoration:none;
     color: chartreuse;
 }
 #Html.ActionLink.hover {
@@ -114,4 +115,38 @@ textarea {
     width: 700px;*/
     background-color: lightgray;
     /*box-shadow: 10px 10px silver;*/
+}
+.divDropdown {
+  position:absolute ;
+  left:50px;
+  top:100px;
+}
+/*.divDetailsTable{
+    text-align :left;
+    vertical-align:top;
+}*/
+ /*.divDetailsTable td, divDetailsTable dt, divDetailsTable dl, divDetailsTable tr {
+        text-align: left;
+        vertical-align: top;
+    }*/
+hr {
+    
+    border-top: 2px solid #ccc;
+    /*border-color: orangered;*/
+}
+dt *{
+      text-align: left;
+        vertical-align: top;
+}
+tr:hover {
+    background-color: #f5f5f5;
+}
+.purchaseButton {
+
+   height:22px;
+   width:80px;
+  
+    background-image: url(graphics/addToChart1.png);
+    
+   
 }

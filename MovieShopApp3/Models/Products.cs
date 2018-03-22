@@ -28,6 +28,7 @@ namespace MovieShopApp3.Models
         public int NrInStore { get; set; }
         public double Rating { get; set; }
         public int ProductTypeID { get; set; }
+        public string imgUrl { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProdCat> ProdCat { get; set; }

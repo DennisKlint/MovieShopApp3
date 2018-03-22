@@ -54,6 +54,7 @@
     <NavigationProperty Name="ProdCat" Relationship="Self.FK_ProdCat_ProductID" FromRole="Products" ToRole="ProdCat" />
     <NavigationProperty Name="ProdOrder" Relationship="Self.FK_ProdOrder_ProductID" FromRole="Products" ToRole="ProdOrder" />
     <NavigationProperty Name="ProductType" Relationship="Self.FK_Products_ProductTypeID" FromRole="Products" ToRole="ProductType" />
+    <Property Name="imgUrl" Type="String" MaxLength="256" FixedLength="true" Unicode="true" />
   </EntityType>
   <EntityType Name="ProductType">
     <Key>
