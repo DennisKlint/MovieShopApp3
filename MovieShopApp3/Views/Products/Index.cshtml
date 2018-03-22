@@ -7,37 +7,8 @@
     }
 
 </p>
-@*<div class="container">
 
-        <div id="myCarousel" class="carousel slide divCarouselCustom" data-ride="carousel">
-
-
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img src="~/Content/graphics/1.jpg" alt="" style="width:100%; height :300px;">
-                </div>
-
-                <div class="item">
-                    <img src="~/Content/graphics/2.jpg" alt="" style="width:100%; height :300px;">
-                </div>
-
-                <div class="item">
-                    <img src="~/Content/graphics/3.jpg" alt="" style="width:100%; height :300px;">
-                </div>
-            </div>
-
-        </div>
-    </div>*@
-
-
-@*<div class="container">
-
-    <div class="row">
-        @Html.Action("PartialViewCategories", "Categories")
-    </div>
-</div>*@
-
-<table id="ajaxTable" class="table" style="margin-top:0 auto">
+<table id="ajaxTable" class="table" style="margin:0 auto;">
 
 
     @foreach (var item in Model)
@@ -71,28 +42,35 @@
             </td>
 
 
-            <td>
+            <td style="text-align:right">
                 @if (Roles.IsUserInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-                    @Html.ActionLink("Buy", "Purchase", new { id = item.ProductID })
-                    @Html.ActionLink("Details", "Details", new { id = item.ProductID })
-                }
-                else
-                {
+    {
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID })
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+            @Html.ActionLink("Buy", "Purchase", new { id = item.ProductID })
+            @Html.ActionLink("Details", "Details", new { id = item.ProductID })
+}
+else
+{
+            @*<button type="button" class="btn btn-success">Add to basket</button>
+            <a href='@Url.Action("Purchase", "Products", new {id =  item.ProductID})'>
+                <img src='' class="purchaseButton" />
+            </a>*@
+            @Html.ActionLink("Add to basket ", "Purchase", new { id = item.ProductID }, new { @Class ="btn btn-success" })@:&nbsp;
+            @*<img src = "/Content/graphics/addToChart1.png" />*@
 
-                    @Html.ActionLink("Buy", "Purchase", new { id = item.ProductID })
-                    @*@Ajax.ActionLink("Buy", "Purchase", new { id = item.ProductID }, new AjaxOptions
-                    {
-                        HttpMethod = "post",
-                        //UpdateTargetId = "divtest",
-                        InsertionMode = InsertionMode.Replace,
-                        OnSuccess = "OnSuccessMethod"
+            @*@Html.ActionLink("Buy", "Purchase", new { id = item.ProductID })*@
 
-                    })*@
-                    @Html.ActionLink("Details", "Details", new { id = item.ProductID })
-                }
+            @*@Ajax.ActionLink("Buy", "Purchase", new { id = item.ProductID }, new AjaxOptions
+    {
+        HttpMethod = "post",
+        //UpdateTargetId = "divtest",
+        InsertionMode = InsertionMode.Replace,
+        OnSuccess = "OnSuccessMethod"
+
+    })*@
+            @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @Class = "btn btn-info" })
+}
             </td>
         </tr>
     }

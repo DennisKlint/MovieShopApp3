@@ -1,66 +1,79 @@
 ﻿@model MovieShopApp3.Models.Products
 
-@{
-    ViewBag.Title = "Details";
-}
 
-<h2>Details</h2>
 
-<div>
-    <h4>Products</h4>
+
+
+<div >
+    <h4>Details for : @Html.DisplayFor(model => model.ProductName)</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
+   
+   <table class="divDetailsTable" style="text-align:left;margin-top:0px; vertical-align:text-top">
+       <tr>
+           <td> <img src=@Html.DisplayFor(model => model.imgUrl ) /></td>
+           <td>
+               <dl class="dl-horizontal"  >
+                
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
+                   <dt>
+                       Title
+                   </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MovieDescription)
-        </dt>
+                   <dd>
+                       @Html.DisplayFor(model => model.ProductName)
+                   </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MovieDescription)
-        </dd>
+                   <dt>
+                       Description
+                   </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
+                   <dd>
+                       @Html.DisplayFor(model => model.MovieDescription)
+                   </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Price)
+                   </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.NrInStore)
-        </dt>
+                   <dd>
+                       @Html.DisplayFor(model => model.Price) &euro;
+                   </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.NrInStore)
-        </dd>
+                   <dt>
+                       Items in stock
+                   </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
+                   <dd>
+                       @Html.DisplayFor(model => model.NrInStore)
+                   </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Rating)
+                   </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductType.ProductTypeName)
-        </dt>
+                   <dd>
+                       @Html.DisplayFor(model => model.Rating)
+                   </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductType.ProductTypeName)
-        </dd>
+                   <dt>
+                       Media
+                   </dt>
 
-    </dl>
+                   <dd>
+                       @Html.DisplayFor(model => model.ProductType.ProductTypeName)
+                   </dd>
+
+               </dl>
+           </td>
+       </tr>
+   </table>
+
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Roles.IsUserInRole("Admin"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID })
+    }
+  <br/>
+    @Html.ActionLink("Back to Products", "Index",null, new { @Class = "btn btn-primary" })
 </p>
