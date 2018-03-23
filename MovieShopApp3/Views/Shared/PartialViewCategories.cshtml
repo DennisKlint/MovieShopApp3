@@ -5,10 +5,11 @@
         <div class="container">
             <div class="navbar">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("All", "../Products/showByCategory", new { id = 99})</li>
                     @foreach (var item in Model)
                     {
                         <li>
-                            @Html.ActionLink(item.CategoryName, "showByCategory", new { id = item.CategoryID })
+                            @Html.ActionLink(item.CategoryName, "../Products/showByCategory", new { id = item.CategoryID })
 
                         </li>
                     }

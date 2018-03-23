@@ -70,10 +70,7 @@
 
 </div>
 <p>
-    @if (Roles.IsUserInRole("Admin"))
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ProductID })
-    }
+   
   <br/>
     @Html.ActionLink("Back to Products", "Index",null, new { @Class = "btn btn-primary" })
 </p>

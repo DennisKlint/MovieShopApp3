@@ -17,12 +17,38 @@ namespace MovieShopApp3.Controllers
         // GET: Products
         public ActionResult Index()
         {
-           
             var products = db.Products.Include(p => p.ProductType);
+            if (!(Session["selectedCat"] == null))
+            {
+                return showByCategory(Convert.ToInt32(Session["selectedCat"]));
+            }
+            else
+            {
+                return View(products.ToList());
+            }
+           
 
-            return View(products.ToList());
+           
         }
-       
+        public ActionResult showByCategory(int id)
+        {
+            Session["selectedCat"] = id;
+            List<Products> productlist = new List<Products>();
+            if(id == 99) // show products for all categories
+            {
+                var products = db.Products.Include(p => p.ProductType);
+                productlist = products.ToList();
+            }
+            else //show only products for selected categorie
+            {
+                productlist = db.Products.SqlQuery("Select Products.* from Products,ProdCat where Products.ProductID = ProdCat.ProductID AND ProdCat.CategoryID ='" + id + "'").ToList();
+
+            }
+
+
+            return View("Index", productlist);
+
+        }
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
@@ -35,6 +61,7 @@ namespace MovieShopApp3.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(products);
         }
 
@@ -168,7 +195,8 @@ namespace MovieShopApp3.Controllers
             var cartlist = (List<int>)Session["CartList"];
             cartlist.Add(id);
            Session["CartList"] = cartlist;
-          
+         
+
             int no = 0;
             if (!(cartlist == null))
             {
@@ -176,8 +204,15 @@ namespace MovieShopApp3.Controllers
             }
           
             Session["noOfitems"] = no;
-            //var products = db.Products.Include(p => p.ProductType);
-            return RedirectToAction("Index");
+            if (!(Session["selectedCat"] == null))
+            {
+               return showByCategory(Convert.ToInt32(Session["selectedCat"]));
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+           
         }
 
         public ActionResult ShopingCartDetails()

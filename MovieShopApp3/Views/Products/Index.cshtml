@@ -43,36 +43,24 @@
 
 
             <td style="text-align:right">
+
+                @Html.ActionLink("Add to basket ", "Purchase", new { id = item.ProductID }, new { @Class = "btn btn-success" }) &nbsp;
+                @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @Class = "btn btn-info" })&nbsp;
                 @if (Roles.IsUserInRole("Admin"))
     {
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID })
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-            @Html.ActionLink("Buy", "Purchase", new { id = item.ProductID })
-            @Html.ActionLink("Details", "Details", new { id = item.ProductID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @Class = "btn btn-warning" })@: &nbsp;
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @Class = "btn btn-danger" })
 }
-else
-{
-            @*<button type="button" class="btn btn-success">Add to basket</button>
-            <a href='@Url.Action("Purchase", "Products", new {id =  item.ProductID})'>
-                <img src='' class="purchaseButton" />
-            </a>*@
-            @Html.ActionLink("Add to basket ", "Purchase", new { id = item.ProductID }, new { @Class ="btn btn-success" })@:&nbsp;
-            @*<img src = "/Content/graphics/addToChart1.png" />*@
+            </td>
+        </tr>
+    }
+</table>
 
-            @*@Html.ActionLink("Buy", "Purchase", new { id = item.ProductID })*@
+@*@Ajax.ActionLink("Buy", "Purchase", new { id = item.ProductID }, new AjaxOptions
 
-            @*@Ajax.ActionLink("Buy", "Purchase", new { id = item.ProductID }, new AjaxOptions
-    {
         HttpMethod = "post",
         //UpdateTargetId = "divtest",
         InsertionMode = InsertionMode.Replace,
         OnSuccess = "OnSuccessMethod"
 
     })*@
-            @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @Class = "btn btn-info" })
-}
-            </td>
-        </tr>
-    }
-
-</table>

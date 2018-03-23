@@ -79,7 +79,7 @@ namespace MovieShopApp3.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index","Products");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -168,9 +168,9 @@ namespace MovieShopApp3.Controllers
                     cont.Users.Add(obj);
                     cont.SaveChanges();
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
 
-                    return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("Index", "Products");
                 }
                 AddErrors(result);
             }
@@ -399,7 +399,8 @@ namespace MovieShopApp3.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("Index", "Products");
         }
 
         //

@@ -73,9 +73,10 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <div>
+        @Html.ActionLink("Back to Products", "Index", null, new { @Class = "btn btn-primary" })
+        
+    </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

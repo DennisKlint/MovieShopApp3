@@ -26,29 +26,29 @@ namespace MovieShopApp3.Controllers
             return PartialView("PartialViewCategories", cat.ToList());
 
         }
-        public ActionResult showByCategory(int id)
-        {
-            Session["selectedCat"] = id;
-            List<Products> productlist = new List<Products>();
-            productlist = db.Products.SqlQuery("Select Products.* from Products,ProdCat where Products.ProductID = ProdCat.ProductID AND ProdCat.CategoryID ='" + id + "'").ToList();
+        //public ActionResult showByCategory(int id)
+        //{
+        //    Session["selectedCat"] = id;
+        //    List<Products> productlist = new List<Products>();
+        //    productlist = db.Products.SqlQuery("Select Products.* from Products,ProdCat where Products.ProductID = ProdCat.ProductID AND ProdCat.CategoryID ='" + id + "'").ToList();
 
 
-            return View("../Products/PartialView_Products", productlist);
+        //    return View("../Products/PartialView_Products", productlist);
 
-        }
-        public ActionResult Purchase(int id)
-        {
-            if (Session["CartList"] == null)
-            {
-                List<int> cartList = new List<int>();
-                Session["CartList"] = cartList;
-            }
+        //}
+        //public ActionResult Purchase(int id)
+        //{
+        //    if (Session["CartList"] == null)
+        //    {
+        //        List<int> cartList = new List<int>();
+        //        Session["CartList"] = cartList;
+        //    }
 
-            var cartlist = (List<int>)Session["CartList"];
-            cartlist.Add(id);
-            Session["CartList"] = cartlist;
-            return showByCategory(Convert.ToInt32(Session["selectedCat"]));
-        }
+        //    var cartlist = (List<int>)Session["CartList"];
+        //    cartlist.Add(id);
+        //    Session["CartList"] = cartlist;
+        //    return showByCategory(Convert.ToInt32(Session["selectedCat"]));
+        //}
         // GET: Categories/Details/5
         public ActionResult Details(int? id)
         {
