@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MovieShopApp3.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Threading.Tasks;
 
 namespace MovieShopApp3.Controllers
 {
@@ -20,49 +21,92 @@ namespace MovieShopApp3.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            //Establish a connection so we can find the logged in user
-            ApplicationDbContext context = new ApplicationDbContext();
-            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
-            var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-            if (User.IsInRole("Admin")) { }
-            else
+            return View(GetOrders());
+
+        }
+
+        private async Task StartGetOrders()
+        {
+            return await GetOrders();
+        }
+
+        private List<OrderAndProductsModel> GetOrders()
+        {
             {
-                var userid = User.Identity.GetUserId();
-                var query = from order in db.Orders where order.UserID == userid select order;
+                //Establish a connection so we can find the logged in user
+                ApplicationDbContext context = new ApplicationDbContext();
+                var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+                var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
 
-                var orderProductsList = new List<OrderAndProductsModel>();
-                foreach (var order in query)
+                if (User.IsInRole("Admin"))
                 {
-                    var query2 = from prodOrder in db.ProdOrder where prodOrder.OrderID == order.OrderID select prodOrder;
-
-                    var prodList = new List<Products>();
-
-                    foreach (var prodOrder in query2)
+                    
+                    var order = db.Orders.OrderBy(s => s.OrderSent == false).ThenBy(d => d.OrderDateTime);
+                    var orderProductsList = new List<OrderAndProductsModel>();
+                    foreach (var ord in order)
                     {
-                        var product = new Products();
-                        product = db.Products.Single(x => x.ProductID == prodOrder.ProductID);
-                        prodList.Add(product);
-                        //Need to get the products, and orders, into a list of OrderAndProductsModel
+                        var query = from prodOrder in db.ProdOrder where prodOrder.OrderID == ord.OrderID select prodOrder;
+
+                        var prodList = new List<Products>();
+
+                        foreach (var prodOrder in query)
+                        {
+                            var product = new Products();
+                            product = db.Products.Single(x => x.ProductID == prodOrder.ProductID);
+                            prodList.Add(product);
+                        }
+
+                        List<Products> SortedList = prodList.OrderBy(o => o.ProductID).ToList();
+
+                        orderProductsList.Add(new OrderAndProductsModel()
+                        {
+                            OrderID = ord.OrderID,
+                            UserID = ord.UserID,
+                            OrderDateTime = ord.OrderDateTime,
+                            OrderSent = ord.OrderSent,
+                            OrderSentDate = ord.OrderSentDate,
+                            Product = new List<Products>(SortedList)
+                        });
+
                     }
-
-                    List<Products> SortedList = prodList.OrderBy(o => o.ProductID).ToList();
-
-                    orderProductsList.Add(new OrderAndProductsModel()
-                    {
-                        OrderID = order.OrderID,
-                        UserID = order.UserID,
-                        OrderDateTime = order.OrderDateTime,
-                        OrderSent = order.OrderSent,
-                        OrderSentDate = order.OrderSentDate,
-                        Product = new List<Products>(SortedList)
-                    });
+                    return orderProductsList;
                 }
-                return View(orderProductsList);
-            }
+                else
+                {
+                    var userid = User.Identity.GetUserId();
+                    var query = from order in db.Orders where order.UserID == userid select order;
 
-            var orders = db.Orders.Include(o => o.Users);
-            return View(orders.ToList());
+                    var orderProductsList = new List<OrderAndProductsModel>();
+                    foreach (var order in query)
+                    {
+                        var query2 = from prodOrder in db.ProdOrder where prodOrder.OrderID == order.OrderID select prodOrder;
+
+                        var prodList = new List<Products>();
+
+                        foreach (var prodOrder in query2)
+                        {
+                            var product = new Products();
+                            product = db.Products.Single(x => x.ProductID == prodOrder.ProductID);
+                            prodList.Add(product);
+                            //Need to get the products, and orders, into a list of OrderAndProductsModel
+                        }
+
+                        List<Products> SortedList = prodList.OrderBy(o => o.ProductID).ToList();
+
+                        orderProductsList.Add(new OrderAndProductsModel()
+                        {
+                            OrderID = order.OrderID,
+                            UserID = order.UserID,
+                            OrderDateTime = order.OrderDateTime,
+                            OrderSent = order.OrderSent,
+                            OrderSentDate = order.OrderSentDate,
+                            Product = new List<Products>(SortedList)
+                        });
+                    }
+                    return orderProductsList;
+                }
+            }
         }
 
         // GET: Orders/Details/5
@@ -234,5 +278,28 @@ namespace MovieShopApp3.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult SendOrder(int id)
+        {
+            var order = db.Orders.Single(ord => ord.OrderID == id);
+            foreach (var prodOrd in db.ProdOrder.Where(PrOd => PrOd.OrderID == order.OrderID))
+            {
+                db.Products.Single(prod => prod.ProductID == prodOrd.ProductID).NrInStore -= 1;
+                db.SaveChangesAsync();
+            }
+            db.Orders.Single(ord => ord.OrderID == id).OrderSent = true;
+            db.SaveChangesAsync();
+            return View("index", await GetOrders());
+        }
+
+        //[HttpPost]
+        //public ActionResult SendOrder(int id)
+        //{
+
+
+        //    return Json("", JsonRequestBehavior.AllowGet);
+        //}
     }
 }
