@@ -19,19 +19,14 @@ namespace MovieShopApp3.Controllers
         private dbMSA3Entities db = new dbMSA3Entities();
 
         // GET: Orders
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
 
-            return View(GetOrders());
+            return View(await GetOrders());
 
         }
 
-        private async Task StartGetOrders()
-        {
-            return await GetOrders();
-        }
-
-        private List<OrderAndProductsModel> GetOrders()
+        private async Task<List<OrderAndProductsModel>> GetOrders()
         {
             {
                 //Establish a connection so we can find the logged in user
@@ -41,10 +36,33 @@ namespace MovieShopApp3.Controllers
 
                 if (User.IsInRole("Admin"))
                 {
-                    
-                    var order = db.Orders.OrderBy(s => s.OrderSent == false).ThenBy(d => d.OrderDateTime);
+
+                    var comOrd = await db.Orders.ToListAsync();
+
+                    var temp = comOrd.OrderBy(ord => ord.OrderSent == true)
+                        .Select(ord => new Orders
+                        {
+                            OrderID = ord.OrderID,
+                            UserID = ord.UserID,
+                            OrderSent = ord.OrderSent,
+                            OrderSentDate = ord.OrderSentDate,
+                            OrderDateTime = ord.OrderDateTime
+                        });
+
+                    //var ordersAsync = await comOrd.OrderBy(ord => ord.OrderSent == true)
+                    //         .Select(ord => new Orders
+                    //         {
+                    //             OrderID = ord.OrderID,
+                    //             UserID = ord.UserID,
+                    //             OrderSent = ord.OrderSent,
+                    //             OrderSentDate = ord.OrderSentDate,
+                    //             OrderDateTime = ord.OrderDateTime
+                    //         }).ToListAsync();
+
+
+                    var order = db.Orders.OrderBy(s => s.OrderSent == true).ThenBy(d => d.OrderDateTime);
                     var orderProductsList = new List<OrderAndProductsModel>();
-                    foreach (var ord in order)
+                    foreach (var ord in temp)
                     {
                         var query = from prodOrder in db.ProdOrder where prodOrder.OrderID == ord.OrderID select prodOrder;
 
@@ -281,16 +299,16 @@ namespace MovieShopApp3.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult SendOrder(int id)
+        public async Task<ActionResult> SendOrder(int id)
         {
             var order = db.Orders.Single(ord => ord.OrderID == id);
             foreach (var prodOrd in db.ProdOrder.Where(PrOd => PrOd.OrderID == order.OrderID))
             {
-                db.Products.Single(prod => prod.ProductID == prodOrd.ProductID).NrInStore -= 1;
-                db.SaveChangesAsync();
+                    db.Products.Single(prod => prod.ProductID == prodOrd.ProductID).NrInStore -= 1;
+                    //await db.SaveChangesAsync();
             }
             db.Orders.Single(ord => ord.OrderID == id).OrderSent = true;
-            db.SaveChangesAsync();
+            await db.SaveChangesAsync();
             return View("index", await GetOrders());
         }
 
