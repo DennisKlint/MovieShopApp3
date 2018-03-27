@@ -21,17 +21,22 @@
                         <ul class="nav navbar-nav" style="color:yellow">
                             <li>@Html.ActionLink("Home", "Index", "Products")</li>
                             <li>
+                                @if (Roles.IsUserInRole("Admin")) { 
                             <li class="dropdown">
                                 <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Admin menue<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
+
+                                    
                                     <li>  @Html.ActionLink("Users", "Index", "Users")</li>
                                     <li> @Html.ActionLink("Products", "Index", "Products")</li>
                                     <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
                                     <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
                                     <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+
                                 </ul>
+                             
                             </li>
-                           
+                                }
 
                             <li>@Html.Partial("_LoginPartial")</li>
                             <li style="position:fixed;right:22%">@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" }) </li>
@@ -79,9 +84,10 @@
             </div>
             @*end div wrapper*@
         </div>
-        <br /><br /><br /><br />
+        
 
         <footer class="navbar-fixed-bottom footerCustom">
+            <br/><br/>
             <p>&copy; @DateTime.Now.Year -MovieShop3</p>
         </footer>
     </div>

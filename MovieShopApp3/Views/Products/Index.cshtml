@@ -1,5 +1,5 @@
-﻿@model IEnumerable<MovieShopApp3.Models.Products>
-
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<MovieShopApp3.Models.Products>
 <p>
     @if (Roles.IsUserInRole("Admin"))
     {
@@ -47,20 +47,19 @@
                 @Html.ActionLink("Add to basket ", "Purchase", new { id = item.ProductID }, new { @Class = "btn btn-success" }) &nbsp;
                 @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @Class = "btn btn-info" })&nbsp;
                 @if (Roles.IsUserInRole("Admin"))
-    {
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @Class = "btn btn-warning" })@: &nbsp;
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @Class = "btn btn-danger" })
-}
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @Class = "btn btn-warning" })@: &nbsp;
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @Class = "btn btn-danger" })
+                }
             </td>
         </tr>
+
     }
+
 </table>
-
-@*@Ajax.ActionLink("Buy", "Purchase", new { id = item.ProductID }, new AjaxOptions
-
-        HttpMethod = "post",
-        //UpdateTargetId = "divtest",
-        InsertionMode = InsertionMode.Replace,
-        OnSuccess = "OnSuccessMethod"
-
-    })*@
+<div id="pager" style="text-align:center;">
+    <p> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))@*,
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "ajaxTable" }))*@
+</div>
+<br /><br /><br />

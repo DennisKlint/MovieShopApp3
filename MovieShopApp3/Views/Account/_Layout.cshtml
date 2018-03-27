@@ -13,84 +13,79 @@
 
 
 </head>
-<body>
-
+<body  ng-app="tabApp">
 
     <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <p>&nbsp;</p>
-            </div>
-            <div class="col-sm">
-                <div>
+        <div class="col-lg-12">
 
-                    <div class="navbar navbar-inverse navbar-fixed-top">
-                        <div class="container">
-                            <div class="navbar-header">
+            <div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container" style="margin-left:0 auto">
 
-                                <a href="Index.cshtml"><img src="~/Content/graphics/logga.png" title="title" alt="additional title" style="height:50px; width:80px" /></a>
-                                @*  @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-                            </div>
-                            <div class="navbar-collapse collapse">
-                                <ul class="nav navbar-nav">
-                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                                    <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
-                                    <li>@Html.ActionLink("Products", "Index", "Products")</li>
-                                    <li>
+                    <div class="navbar">
 
-                                        @Html.ActionLink("Autotest", "Index", "TEST")
-
-                                    </li>
-                                    <li>@Html.Partial("_LoginPartial")</li>
-                                    @{
-                                        var cartlist = (List<int>)Session["CartList"];
-                                        int no = 0;
-                                        if (!(cartlist == null))
-                                        {
-                                            no = cartlist.Count();
-                                        }
-                                    }
-
-                                    <li>@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" }) </> </li>
-                                    <li>&nbsp; @no</li>
-                                </ul>
+                        <ul class="nav navbar-nav" style="color:yellow">
+                            <li>@Html.ActionLink("Home", "Index", "Products")</li>
+                            <li>
+                                @if (Roles.IsUserInRole("Admin"))
+                                {
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Admin menue<span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
 
 
-                            </div>
+                                        <li>  @Html.ActionLink("Users", "Index", "Users")</li>
+                                        <li> @Html.ActionLink("Products", "Index", "Products")</li>
+                                        <li>@Html.ActionLink("Categories", "Index", "Categories")</li>
+                                        <li>@Html.ActionLink("ProductCategories", "Index", "ProdCats")</li>
+                                        <li>@Html.ActionLink("Orders", "Index", "Orders")</li>
+
+                                    </ul>
+
+                                </li>
+                            }
+
+                                <li>@Html.Partial("_LoginPartial")</li>
+                                <li style="position:fixed;right:22%">@Html.ActionLink(" ", "shopingCart", "Products", null, new { @class = "glyphicon  glyphicon glyphicon-shopping-cart" }) </li>
+
+
+                                <li style="position:fixed;right:21%">
+                                    <div id="divNoOfItems">{{@Session["noOfitems"]}}</div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                  
-                  
-                    <div class="container body-content">
-                        @RenderBody()
+                </div>
+        <br/><br/><br/>
+
+                <div class="container body-content">
+                    @RenderBody()
 
 
 
 
-                    </div>
-                </div>  @*end div wrapper*@
-            </div>
-            <br /><br /><br /><br />
-
-            <footer class="navbar-fixed-bottom footerCustom">
-                <p>&copy; @DateTime.Now.Year -MovieShop3</p>
-            </footer>
+                </div>
+            </div>  @*end div wrapper*@
         </div>
-    </div>
+        <br /><br /><br /><br />
+
+        <footer class="navbar-fixed-bottom footerCustom">
+            <p>&copy; @DateTime.Now.Year -MovieShop3</p>
+        </footer>
+        </div>
+        </div>
 
 
 
 
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
 
 
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/MovieShopScripts")
-    @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/MovieShopScripts")
+        @Scripts.Render("~/bundles/modernizr")
+        @RenderSection("scripts", required: false)
 
-</body>
+    </body>
 </html>
