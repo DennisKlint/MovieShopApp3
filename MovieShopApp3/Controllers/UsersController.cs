@@ -21,6 +21,7 @@ namespace MovieShopApp3.Controllers
         }
 
         // GET: Users/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -78,6 +79,7 @@ namespace MovieShopApp3.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "UserID,UserName,Email,Adress,City,ZipCode")] Users users)
         {
             //If email is changed, verify that it is not already in use 
@@ -113,6 +115,7 @@ namespace MovieShopApp3.Controllers
         }
 
         // GET: Users/Delete/5
+        [Authorize(Roles ="Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)

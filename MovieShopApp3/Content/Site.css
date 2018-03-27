@@ -23,7 +23,7 @@ textarea {
     max-width: 280px;
 }
 .glyphicon{
-    font-size:40px;
+    font-size:35px;
 }
 .navbarCustom {
     background-image: url('graphics/stripe3.jpg');
@@ -85,12 +85,13 @@ textarea {
     -moz-box-shadow: inherit;
     -webkit-box-shadow: inherit;*/
 }
-.footerCustom{
-    margin-top:50px;
-    text-align:center;
-    background-color :black;
-    vertical-align:central ;
-    height:50px;
+.footerCustom {
+    margin: 0 auto;
+    text-align: center;
+    background-color: black;
+    vertical-align: central;
+    height: 70px;
+    display: inline-block;
 }
 .divLogin {
     margin: 0 auto;
@@ -119,7 +120,7 @@ textarea {
 .divDropdown {
   position:absolute ;
   left:50px;
-  top:100px;
+  top:20px;
 }
 /*.divDetailsTable{
     text-align :left;
@@ -140,13 +141,4 @@ dt *{
 }
 tr:hover {
     background-color: #f5f5f5;
-}
-.purchaseButton {
-
-   height:22px;
-   width:80px;
-  
-    background-image: url(graphics/addToChart1.png);
-    
-   
 }

@@ -7,46 +7,72 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MovieShopApp3.Models;
+using PagedList;
 
 namespace MovieShopApp3.Controllers
 {
     public class ProductsController : Controller
     {
         private dbMSA3Entities db = new dbMSA3Entities();
-
+        private const int pageSize = 2;
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var products = db.Products.Include(p => p.ProductType);
+            int pageNumber =0;
+            if (page == null && Session["pageNumber"] == null)
+            {
+                pageNumber = (page ?? 1);
+            }
+            else if (page == null && !(Session["pageNumber"] == null))
+            {
+                pageNumber = Convert.ToInt32(Session["pageNumber"]);
+            }
+            else if(!(page == null))
+            {
+                pageNumber = (page ?? 1);
+            }
+
+
+
+            Session["pageNumber"] = pageNumber;
+
+            var products = db.Products.Include(p => p.ProductType).ToList().ToPagedList(pageNumber, pageSize);
             if (!(Session["selectedCat"] == null))
             {
-                return showByCategory(Convert.ToInt32(Session["selectedCat"]));
+                return showByCategory(Convert.ToInt32(Session["selectedCat"]), pageNumber);
             }
             else
             {
-                return View(products.ToList());
+                return View(products);
             }
-           
 
-           
+
+
         }
-        public ActionResult showByCategory(int id)
+
+        public ActionResult showByCategory(int id, int? page)
         {
+
+
+            int pageNumber = Convert.ToInt32(Session["pageNumber"]);
+
+
             Session["selectedCat"] = id;
+            var products = db.Products.Include(p => p.ProductType).ToList().ToPagedList(pageNumber, pageSize);
             List<Products> productlist = new List<Products>();
-            if(id == 99) // show products for all categories
+            if (!(id == 99)) // show products for all categories
+            //{
+            //    var products = db.Products.Include(p => p.ProductType).ToList().ToPagedList(pageNumber, pageSize);
+            //    //productlist = products.ToList();
+            //}
+            //else //show only products for selected categorie
             {
-                var products = db.Products.Include(p => p.ProductType);
-                productlist = products.ToList();
-            }
-            else //show only products for selected categorie
-            {
-                productlist = db.Products.SqlQuery("Select Products.* from Products,ProdCat where Products.ProductID = ProdCat.ProductID AND ProdCat.CategoryID ='" + id + "'").ToList();
+                products = db.Products.SqlQuery("Select Products.* from Products,ProdCat where Products.ProductID = ProdCat.ProductID AND ProdCat.CategoryID ='" + id + "'").ToList().ToPagedList(pageNumber, pageSize);
 
             }
 
 
-            return View("Index", productlist);
+            return View("Index", products);
 
         }
         // GET: Products/Details/5
@@ -105,7 +131,7 @@ namespace MovieShopApp3.Controllers
                         ProductID = products.ProductID,
                         CategoryID = cat.CategoryID
                     };
-                    
+
                     db.ProdCat.Add(prodCat);
                 }
                 db.SaveChanges();
@@ -194,25 +220,25 @@ namespace MovieShopApp3.Controllers
             }
             var cartlist = (List<int>)Session["CartList"];
             cartlist.Add(id);
-           Session["CartList"] = cartlist;
-         
+            Session["CartList"] = cartlist;
+
 
             int no = 0;
             if (!(cartlist == null))
             {
                 no = cartlist.Count();
             }
-          
+
             Session["noOfitems"] = no;
             if (!(Session["selectedCat"] == null))
             {
-               return showByCategory(Convert.ToInt32(Session["selectedCat"]));
+                return showByCategory(Convert.ToInt32(Session["selectedCat"]), Convert.ToInt32(Session["pageNumber"]));
             }
             else
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", Convert.ToInt32(Session["pageNumber"]));
             }
-           
+
         }
 
         public ActionResult ShopingCartDetails()
@@ -227,16 +253,16 @@ namespace MovieShopApp3.Controllers
 
                 plist.Add(obj);
             }
-          
+
             return View(plist);
         }
         public ActionResult DeleteFromBasket(int id)
         {
 
             var cartlist = (List<int>)Session["CartList"];
-            cartlist.Remove (id);
+            cartlist.Remove(id);
             Session["CartList"] = cartlist;
-            Session["noOfitems"] = Convert.ToInt32( Session["noOfitems"]) - 1;
+            Session["noOfitems"] = Convert.ToInt32(Session["noOfitems"]) - 1;
             return RedirectToAction("ShopingCart");
 
         }
@@ -293,6 +319,7 @@ namespace MovieShopApp3.Controllers
             Session["noOfitems"] = no;
             return PartialView("PartialViewShopingBasket");
         }
-    }
+
     }
 
+}
