@@ -67,11 +67,11 @@
                                 <br />
                                 Sent Status: 
                                 @Html.DisplayFor(modelItem => item.OrderSent)
-                                <br />
+                                @*<br />
                                 @if (item.OrderSent)
                                 {
                                     @:Sent Date:  
-                                    @Html.DisplayFor(modelItem => item.OrderSentDate)}
+                                    @Html.DisplayFor(modelItem => item.OrderSentDate)}*@
                             </div>
                             <div ng-show="isSet(@item.OrderID+'2')">
                                 <table>
