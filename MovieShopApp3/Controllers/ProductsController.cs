@@ -14,7 +14,7 @@ namespace MovieShopApp3.Controllers
     public class ProductsController : Controller
     {
         private dbMSA3Entities db = new dbMSA3Entities();
-        private const int pageSize = 2;
+        private const int pageSize = 5;
         // GET: Products
         public ActionResult Index(int? page)
         {

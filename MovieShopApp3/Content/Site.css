@@ -26,16 +26,16 @@ textarea {
     font-size:35px;
 }
 .navbarCustom {
-    background-image: url('graphics/stripe3.jpg');
-
-
+    color:cornflowerblue;
+    background: linear-gradient(to bottom, #ff9900,#ffc266,#ffebcc);
 }
-#Html.ActionLink {
+#ActionLink {
     text-decoration:none;
-    color: chartreuse;
+    color: blue;
 }
-#Html.ActionLink.hover {
+#ActionLink.hover {
         color: lightcoral;
+
     }
 .divWrapper {
     height: 100%;
@@ -43,33 +43,6 @@ textarea {
     /*border-radius:10px;*/
     background-color: red;
 } 
-.divLeftStripe {
-    height: 100%;
-    width: 250px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
-    background-image: url('graphics/stripe.png');
-  background-size:cover;
-   
-}
-.divRightStripe {
-    height: 100%;
-    width: 250px;
-    position:fixed;
-    z-index: 1;
-    top: 0;
-    right:0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
-    background-image: url('graphics/stripe.png');
-    background-size: cover;
-}
 .divShopingCart {
     height: 40px;
     width: 50px;
@@ -78,12 +51,12 @@ textarea {
     background-color: orange;
 }
 .divCarouselCustom {
-    /*background: linear-gradient(to bottom, #829254,#bdc79e,#dfe4d0);*/
+    background: linear-gradient(to bottom, #829254,#bdc79e,#dfe4d0);
     /*border-radius: 10px;*/
-    /*box-shadow: 10px 0px 50px 10.0px black;*/
-    /*box-shadow : 10px 10px silver;
+    box-shadow: 10px 0px 50px 10.0px black;
+    box-shadow : 10px 10px silver;
     -moz-box-shadow: inherit;
-    -webkit-box-shadow: inherit;*/
+    -webkit-box-shadow: inherit;
 }
 .footerCustom {
     margin: 0 auto;
