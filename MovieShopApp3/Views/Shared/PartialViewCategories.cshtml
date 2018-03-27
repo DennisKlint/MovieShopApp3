@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MovieShopApp3.Models.Categories>
+
+<div class="col-lg divCategories">
+    <div class="navbar">
+        <div class="container">
+            <div class="navbar">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("All", "../Products/showByCategory", new { id = 99})</li>
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            @Html.ActionLink(item.CategoryName, "../Products/showByCategory", new { id = item.CategoryID })
+
+                        </li>
+                    }
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+@*@Ajax.ActionLink(item.CategoryName, "showByCategory", new { id = item.CategoryID }, new AjaxOptions
+    {
+        HttpMethod = "post",
+        UpdateTargetId = "ajaxTable",
+        InsertionMode = InsertionMode.Replace
+
+    })*@

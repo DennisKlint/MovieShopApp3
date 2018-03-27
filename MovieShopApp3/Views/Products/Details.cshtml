@@ -1,0 +1,76 @@
+﻿@model MovieShopApp3.Models.Products
+
+
+
+
+
+<div >
+    <h4>Details for : @Html.DisplayFor(model => model.ProductName)</h4>
+    <hr />
+   
+   <table class="divDetailsTable" style="text-align:left;margin-top:0px; vertical-align:text-top">
+       <tr>
+           <td> <img src=@Html.DisplayFor(model => model.imgUrl ) /></td>
+           <td>
+               <dl class="dl-horizontal"  >
+                
+
+                   <dt>
+                       Title
+                   </dt>
+
+                   <dd>
+                       @Html.DisplayFor(model => model.ProductName)
+                   </dd>
+
+                   <dt>
+                       Description
+                   </dt>
+
+                   <dd>
+                       @Html.DisplayFor(model => model.MovieDescription)
+                   </dd>
+
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Price)
+                   </dt>
+
+                   <dd>
+                       @Html.DisplayFor(model => model.Price) &euro;
+                   </dd>
+
+                   <dt>
+                       Items in stock
+                   </dt>
+
+                   <dd>
+                       @Html.DisplayFor(model => model.NrInStore)
+                   </dd>
+
+                   <dt>
+                       @Html.DisplayNameFor(model => model.Rating)
+                   </dt>
+
+                   <dd>
+                       @Html.DisplayFor(model => model.Rating)
+                   </dd>
+
+                   <dt>
+                       Media
+                   </dt>
+
+                   <dd>
+                       @Html.DisplayFor(model => model.ProductType.ProductTypeName)
+                   </dd>
+
+               </dl>
+           </td>
+       </tr>
+   </table>
+
+</div>
+<p>
+   
+  <br/>
+    @Html.ActionLink("Back to Products", "Index",null, new { @Class = "btn btn-primary" })
+</p>

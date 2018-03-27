@@ -1,0 +1,65 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<MovieShopApp3.Models.Products>
+<p>
+    @if (Roles.IsUserInRole("Admin"))
+    {
+        @Html.ActionLink("Add new product", "Create")
+    }
+
+</p>
+
+<table id="ajaxTable" class="table" style="margin:0 auto;">
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+
+                <img src="@item.imgUrl" title="Title: @item.ProductName&#10;Description:&#10;@item.MovieDescription&#10;Rating: @item.Rating&#10;Price: @item.Price&euro;" style="height :120px; width :100px ;" />
+
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)<br />
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) &euro;
+            </td>
+            <td>
+                @if (item.NrInStore > 0)
+                {
+                    <img src="~/Content/graphics/greenButton.png" style="height:20px; width:20px" />
+                }
+                else
+                {
+                    <img src="~/Content/graphics/redButton.png" style="height:20px; width:20px" alt="" />
+                }
+
+            </td>
+
+
+            <td style="text-align:right">
+
+                @Html.ActionLink("Add to basket ", "Purchase", new { id = item.ProductID }, new { @Class = "btn btn-success" }) &nbsp;
+                @Html.ActionLink("Details", "Details", new { id = item.ProductID }, new { @Class = "btn btn-info" })&nbsp;
+                @if (Roles.IsUserInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @Class = "btn btn-warning" })@: &nbsp;
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @Class = "btn btn-danger" })
+                }
+            </td>
+        </tr>
+
+    }
+
+</table>
+<div id="pager" style="text-align:center;">
+    @*<p> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>*@
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))@*,
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "ajaxTable" }))*@
+</div>
+<br /><br /><br />

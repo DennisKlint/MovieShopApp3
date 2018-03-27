@@ -79,7 +79,7 @@ namespace MovieShopApp3.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index","Products");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -151,19 +151,26 @@ namespace MovieShopApp3.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Adress = model.Adress, City = model.City, ZipCode = model.ZipCode }; var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    //find userID
+                    var userid = UserManager.FindByEmail(user.Email).Id;
 
-                    return RedirectToAction("Index", "Home");
+                    dbMSA3Entities cont = new dbMSA3Entities();
+                    Users obj = new Users();
+                    obj.UserID = userid;
+                    obj.UserName = user.UserName;
+                    obj.Email = user.Email;
+                    obj.Adress = user.Adress;
+                    obj.City = user.City;
+                    obj.ZipCode = user.ZipCode;
+                    cont.Users.Add(obj);
+                    cont.SaveChanges();
+                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+
+                    return RedirectToAction("Index", "Products");
                 }
                 AddErrors(result);
             }
@@ -392,7 +399,8 @@ namespace MovieShopApp3.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            Session.Abandon();
+            return RedirectToAction("Index", "Products");
         }
 
         //

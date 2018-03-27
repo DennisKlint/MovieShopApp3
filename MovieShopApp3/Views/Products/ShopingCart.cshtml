@@ -1,0 +1,84 @@
+﻿@model IEnumerable<MovieShopApp3.Models.ProductCategoriesViewModel>
+
+@{
+    ViewBag.Title = "ShopingCart";
+}
+
+<h2>ShopingCart</h2>
+
+<p>
+    @Html.ActionLink("Back to products", "Index", null, new { @Class = "btn btn-primary" }) &nbsp; 
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductID)
+        </th>
+        <th>
+          Titel
+        </th>
+        <th>
+           Categories
+        </th>
+        <th>
+            Media
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price) &euro;
+        </th>
+        <th></th>
+    </tr>
+    @{int total = 0; }
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                | @foreach (var category in item.Category)
+                {@Html.DisplayFor(modelItem => category.CategoryName) @:|
+            }
+            </td>
+            <td>
+                @if (item.ProductTypeID == 1)
+                {
+                    <img src="~/Content/graphics/vhs.jpg" style="height :30px; width :30px" />
+                }
+                else if (item.ProductTypeID == 2)
+                {
+                    <img src="~/Content/graphics/dvd.png" style="height :30px; width :30px" />
+                }
+                else if (item.ProductTypeID == 3)
+                {
+                    <img src="~/Content/graphics/blu-ray-icon-8267.png" style="height :30px; width :30px" />
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) 
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "DeleteFromBasket", new { id = item.ProductID }, new { @Class = "btn btn-danger btn-xs" })
+              
+            </td>
+        </tr>
+
+        total += item.Price;
+
+
+
+
+    }
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td style="text-align:right"><b>Total price :</b></td>
+            <td> {{@total}} &euro;</td>
+            <td>@Html.ActionLink("Place order", "../Orders/MakeOrder", "Orders", new { @Class = "btn btn-success" })</td>
+        </tr>
+
+</table>

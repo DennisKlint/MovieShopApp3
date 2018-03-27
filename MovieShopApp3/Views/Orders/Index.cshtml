@@ -1,0 +1,102 @@
+﻿@model IEnumerable<MovieShopApp3.Models.OrderAndProductsModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders for @User.Identity.Name</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div @*ng-app="myApp" ng-controller="myCtrl"*@ @*ng-app="tabApp"*@ >
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4" ng-controller="TabController">
+            <div class='panel @(item.OrderSent == true ? "panel-success" : "panel-warning")'>
+                <div class="panel-heading">
+                    <div role="tabpanel">
+
+                        <div class="container">
+                            <div class="row">
+                                <ul class="nav nav-pills">
+                                    <li ng-class="{ active: isSet(@item.OrderID+'1') }" ng-init="setTab(@item.OrderID+'1')">
+                                        <a href ng-click="setTab(@item.OrderID+'1')">Order</a>
+                                    </li>
+                                    <li ng-class="{ active: isSet(@item.OrderID+'2') }">
+                                        <a href ng-click="setTab(@item.OrderID+'2')">Products</a>
+                                    </li>
+                                    @if (item.OrderSent==false && Roles.IsUserInRole("Admin"))
+                                    {
+
+                                    <li>
+                                        @{ 
+                                            //Check if there are enough products to complete this order
+                                            var noneInStoreQuery = item.Product.FirstOrDefault(
+                                                inStore => inStore.NrInStore < item.Product.Count(
+                                                    inOrder => inOrder.ProductID == inStore.ProductID) );
+                                         }
+
+                                        @Html.ActionLink("Send", "SendOrder", "Orders", new { id = item.OrderID },
+                                            new { @class = (noneInStoreQuery == null ?   //If there are enough products for order
+                                                "btn btn-success" :       //you can press the button, 
+                                                "btn btn-danger disabled" //if not, you can't press the button
+                                                )}
+                                        )
+                                        
+                                    </li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    
+                    <div class="container">
+                        <div class="row">
+
+                            <div ng-show="isSet(@item.OrderID+'1')">
+                                Order ID: 
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                                <br />
+                                Order Date: 
+                                @Html.DisplayFor(modelItem => item.OrderDateTime)
+                                <br />
+                                Sent Status: 
+                                @Html.DisplayFor(modelItem => item.OrderSent)
+                                @*<br />
+                                @if (item.OrderSent)
+                                {
+                                    @:Sent Date:  
+                                    @Html.DisplayFor(modelItem => item.OrderSentDate)}*@
+                            </div>
+                            <div ng-show="isSet(@item.OrderID+'2')">
+                                <table>
+                                    @foreach (var prod in item.Product)
+                                    {
+                                        <tr class="well">
+                                            <td>
+                                                Prod ID: 
+                                                @Html.DisplayFor(modelProd => prod.ProductID)
+                                            </td>
+                                            <td>
+                                                Title: 
+                                                @Html.DisplayFor(modelProd => prod.ProductName)
+                                            </td>
+                                        </tr>
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        
+                    </div>
+            </div>
+        </div>
+    }
+</div>

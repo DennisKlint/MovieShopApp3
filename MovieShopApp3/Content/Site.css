@@ -22,3 +22,96 @@ select,
 textarea {
     max-width: 280px;
 }
+.glyphicon{
+    font-size:35px;
+}
+.navbarCustom {
+    color:cornflowerblue;
+    background: linear-gradient(to bottom, #ff9900,#ffc266,#ffebcc);
+}
+#ActionLink {
+    text-decoration:none;
+    color: blue;
+}
+#ActionLink.hover {
+        color: lightcoral;
+
+    }
+.divWrapper {
+    height: 100%;
+    width: 80%;
+    /*border-radius:10px;*/
+    background-color: red;
+} 
+.divShopingCart {
+    height: 40px;
+    width: 50px;
+    /*position: inherit;
+    right: 0px;*/
+    background-color: orange;
+}
+.divCarouselCustom {
+    background: linear-gradient(to bottom, #829254,#bdc79e,#dfe4d0);
+    /*border-radius: 10px;*/
+    box-shadow: 10px 0px 50px 10.0px black;
+    box-shadow : 10px 10px silver;
+    -moz-box-shadow: inherit;
+    -webkit-box-shadow: inherit;
+}
+.footerCustom {
+    margin: 0 auto;
+    text-align: center;
+    background-color: black;
+    vertical-align: central;
+    height: 70px;
+    display: inline-block;
+}
+.divLogin {
+    margin: 0 auto;
+    width: 700px;
+    background-color: lightgray;
+    box-shadow: 10px 10px silver;
+}
+.divRegister {
+  
+    /*margin-top: 50px;
+    margin-bottom :50px;*/
+    /*text-align:center ;*/
+   /*vertical-align:central;*/
+    width:700px;
+    background-color: lightgray;
+    box-shadow: 10px 10px silver;
+}
+.divCategories{
+    margin-top :20px;
+    margin-bottom :20px;
+    /*margin: 0 auto;
+    width: 700px;*/
+    background-color: lightgray;
+    /*box-shadow: 10px 10px silver;*/
+}
+.divDropdown {
+  position:absolute ;
+  left:50px;
+  top:20px;
+}
+/*.divDetailsTable{
+    text-align :left;
+    vertical-align:top;
+}*/
+ /*.divDetailsTable td, divDetailsTable dt, divDetailsTable dl, divDetailsTable tr {
+        text-align: left;
+        vertical-align: top;
+    }*/
+hr {
+    
+    border-top: 2px solid #ccc;
+    /*border-color: orangered;*/
+}
+dt *{
+      text-align: left;
+        vertical-align: top;
+}
+tr:hover {
+    background-color: #f5f5f5;
+}
