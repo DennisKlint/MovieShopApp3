@@ -22,8 +22,12 @@ select,
 textarea {
     max-width: 280px;
 }
-.glyphicon{
-    font-size:35px;
+.imgCustom {
+   width:150px;
+   height:200px;
+}
+.glyphicon {
+    font-size: 35px;
 }
 .navbarCustom {
     color:cornflowerblue;
@@ -59,12 +63,13 @@ textarea {
     -webkit-box-shadow: inherit;
 }
 .footerCustom {
-    margin: 0 auto;
+  
     text-align: center;
     background-color: black;
     vertical-align: central;
     height: 70px;
-    display: inline-block;
+  
+    margin-top:50px;
 }
 .divLogin {
     margin: 0 auto;
